@@ -240,6 +240,7 @@ mrb_io_s_popen(mrb_state *mrb, mrb_value klass)
   int pw[2] = { -1, -1 };
   int doexec;
   int saved_errno;
+  int status;
 
   mrb_get_args(mrb, "S|SH", &cmd, &mode, &opt);
   io = mrb_obj_value(mrb_data_object_alloc(mrb, mrb_class_ptr(klass), NULL, &mrb_io_type));
