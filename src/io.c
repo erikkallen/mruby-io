@@ -329,6 +329,11 @@ mrb_io_s_popen(mrb_state *mrb, mrb_value klass)
       DATA_TYPE(io) = &mrb_io_type;
       DATA_PTR(io)  = fptr;
       result = io;
+      
+      if (waitpid(pid, &status, 0) != -1) {
+          /* child exit code in status */
+          mrb_gv_set(mrb, mrb_intern_cstr(mrb, "$?"), mrb_fixnum_value(WEXITSTATUS(status)));
+      }
       break;
 
     case -1: /* error */
